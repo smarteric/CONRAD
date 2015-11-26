@@ -33,35 +33,46 @@ public class Intro {
 	
 		//Define an image
 		//Hint: Import the package edu.stanford.rsl.conrad.data.numeric.Grid2D
-		//TODO
+		Grid2D image = new Grid2D(imageSizeX, imageSizeY);
 	
 		//Draw a circle
 		int radius = 50;
 		//Set all pixels within the circle to 100
 		int insideVal = 100;
 	
-		//TODO
-		//TODO
-		//TODO
+		for ( int x = 0; x < imageSizeX; x++)
+		{
+			for ( int y = 0; y < imageSizeY; y++)
+			{
+				if( Math.pow( (x - (imageSizeX/2.f)), 2) + Math.pow( (y - (imageSizeY/2.f)), 2) < Math.pow(radius, 2))
+				{
+					image.setAtIndex(x, y, insideVal);
+				}
+				else
+				{
+					image.setAtIndex(x, y, 0);
+				}
+			}
+		}
 		
 		//Show ImageJ GUI
 		ImageJ ij = new ImageJ();
 		//Display image
-		//TODO
+		image.show("circle");
 		
 		//Copy an image
-		//TODO
+		Grid2D copy = new Grid2D(image);	
 		//copy.show("Copy of circle");
 		
 		
 		//Load an image from file
-		String filename = "D:/02_lectures/DMIP/exercises/2014/matlab_intro/mr12.dcm";
+		String filename = "/proj/i5dmip/ym14utah/Reconstruction/CONRAD/src/edu/stanford/rsl/tutorial/dmip/mr12.dcm";
 		//TODO. Hint: Use IJ and ImageUtil
-		//mrImage.show();
+		Grid2D mrImage = ImageUtil.wrapImagePlus(IJ.openImage(filename)).getSubGrid(0);
+		mrImage.show();
 		
 		//convolution
-		//TODO
-		//TODO
+		Convolver conv = new Convolver();
 		
 		//define the kernel. Try simple averaging 3x3 filter
 		int kw = 3;
@@ -72,12 +83,12 @@ public class Intro {
 			kernel[i] = 1.f / (kw*kh);
 		}
 		
-		//TODO
+		conv.convolve(ImageUtil.wrapGrid2D(mrImage), kernel, kw, kh);
 			
 		
 		//write an image to disk, check the supported output formats
-		String outFilename ="D:/02_lectures/DMIP/exercises/2014/matlab_intro/mr12out.tif";
-		//TODO
+		String outFilename ="/proj/i5dmip/ym14utah/Reconstruction/CONRAD/src/edu/stanford/rsl/tutorial/dmip/mr12out.tif";
+		IJ.save(ImageUtil.wrapGrid(mrImage, null), outFilename);
 	}
 	
 	
@@ -91,7 +102,7 @@ public class Intro {
 		
 		for(int i = 0; i < y.length; i++)
 		{
-			//TODO
+			y[i] = Math.sin(2.0 * Math.PI * stepSize * (double) i);
 			
 		}
 		
