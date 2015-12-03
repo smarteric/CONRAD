@@ -66,7 +66,6 @@ public class RANSAC {
 			SimpleVector lineParams = fitline(a);
 			
 		
-			
 			// Calculate the error of the estimated line
 			// update the error and the parameters, if the current line has a smaller error
 		
